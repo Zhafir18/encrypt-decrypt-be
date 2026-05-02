@@ -1,0 +1,16 @@
+name: encrypt-decrypt
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: encrypt-decrypt:latest
+    restart: unless-stopped
+    ports:
+      - "1307:1307"
+#    environment:
+#      - ENCRYPTION_KEY=Olt0bbNfxRtELnytB5TFKteRp8d7PwV9
+#      - DB_ENCRYPTION_KEY=kz21bYi2IRR95kafdBOkidPKilMnK7rk
+    # If you prefer to pass ENCRYPTION_KEY directly instead of using .env,
+    # uncomment and set below:
+
