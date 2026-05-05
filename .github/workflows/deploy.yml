@@ -50,6 +50,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: zhafirghiffari
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 2204
           script: |
             # Login ke GHCR di dalam VPS
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
@@ -58,15 +59,15 @@ jobs:
             docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             
             # Hentikan kontainer lama jika ada
-            docker stop hris-backend || true
-            docker rm hris-backend || true
+            docker stop encrypt-decrypt-be || true
+            docker rm encrypt-decrypt-be || true
             
             # Jalankan kontainer baru
             # Pastikan --network internal_network sudah dibuat di VPS via SSH
             docker run -d \
-              --name hris-backend \
+              --name encrypt-decrypt-be \
               --network internal_network \
-              -p 5000:5000 \
+              -p 1307:1307 \
               --restart always \
               -e TZ=Asia/Jakarta \
               ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
